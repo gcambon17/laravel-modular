@@ -1,0 +1,26 @@
+{
+    "name": "gcambon/laravel-modular",
+    "description": "Add Module integration for Laravel 5.x",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Guillaume CAMBON",
+            "email": "gcambon@mtroisg.fr"
+        }
+    ],
+    "require": {
+        "php":">=7.1.0"
+    },
+    "autoload":{
+        "psr-4":{
+            "Gcambon\\Modules\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gcambon\\Modules\\ModulesServiceProvider"
+            ]
+        }
+    },
+}

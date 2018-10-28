@@ -13,7 +13,7 @@
     },
     "autoload":{
         "psr-4":{
-            "Gcambon\\Modules\\": "src"
+            "Gcambon\\Modules\\": "src/"
         }
     },
     "extra": {

@@ -18,13 +18,16 @@ class ModuleLoader
 	{
 		$result             = new Collection();
 		$fileSystem = new Filesystem();
-		$modulesDirectories = $fileSystem->directories(config('laravel-modular.modules_directory'));
-		foreach ($modulesDirectories as $directory) {
-			$moduleClassName = '\\Modules\\' . $fileSystem->basename($directory) . '\\' . $fileSystem->basename($directory);
-			if (class_exists($moduleClassName)) {
-				$module = new $moduleClassName();
-				if($module->getKey() != "mod") {
-					$result->push($module);
+		$moduleDir = config('laravel-modular.modules_directory');
+		if($fileSystem->isDirectory($moduleDir)){
+       			$modulesDirectories = $fileSystem->directories($moduleDir);
+			foreach ($modulesDirectories as $directory) {
+				$moduleClassName = '\\Modules\\' . $fileSystem->basename($directory) . '\\' . $fileSystem->basename($directory);
+				if (class_exists($moduleClassName)) {
+					$module = new $moduleClassName();
+					if($module->getKey() != "mod") {
+						$result->push($module);
+					}
 				}
 			}
 		}

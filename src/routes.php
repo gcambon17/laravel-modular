@@ -1,5 +1,7 @@
 <?php
 
-Route::get('laravel-modular', function () {
-	return view('laravel-modular::index');
-});
+Route::get('laravel-modular', 'Gcambon\Modules\ModuleController@index');
+Route::get('laravel-modular/{moduleKey}/activate','Gcambon\Modules\ModuleController@activate');
+Route::get('laravel-modular/{moduleKey}/desactivate','Gcambon\Modules\ModuleController@desactivate');
+Route::get('laravel-modular/{moduleKey}/install','Gcambon\Modules\ModuleController@install');
+Route::get('laravel-modular/{moduleKey}/uninstall','Gcambon\Modules\ModuleController@uninstall');

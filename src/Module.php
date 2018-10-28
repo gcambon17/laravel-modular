@@ -9,6 +9,7 @@
 namespace Gcambon\Modules;
 
 use Gcambon\Modules\ModuleInterface;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class Module implements ModuleInterface
 {
@@ -33,7 +34,7 @@ class Module implements ModuleInterface
 
     private function getModulesDirPath(): string
     {
-        return base_path('modules') . DIRECTORY_SEPARATOR . $this->getName();
+        return config('laravel-modular.modules_directory') . DIRECTORY_SEPARATOR . $this->getName();
     }
 
     public function getName(): string
@@ -46,9 +47,16 @@ class Module implements ModuleInterface
         return $this->configurable;
     }
 
+	public function getSettingsControllerString():string{
+    	if(!$this->isConfigurable()){
+    		throw new InvalidParameterException('Ce module n\'est pas paramétrable.');
+		}
+		return $this->getModulesDirPath() .'\\Controllers\SettingsController';
+	}
+
     public function getClassWithNamespace(): string
     {
-        return __NAMESPACE__ . '\\' . $this->getName(). '\\' . $this->getName();
+        return get_class($this);
     }
 
     public function getRoutesPath(): string
@@ -91,7 +99,7 @@ class Module implements ModuleInterface
         return $this->moduleDirPath . DIRECTORY_SEPARATOR . $this->defaultSeeder;
     }
 
-    public function subscribe(): void
+    public function subscribe($events): void
     {
         // TODO: Implement subscribe() method.
     }

@@ -2,8 +2,6 @@
 
 namespace Gcambon\Modules;
 
-use Gcambon\Modules\Entities\ModuleEntity;
-
 interface ModuleInterface
 {
     public function __construct();
@@ -36,7 +34,7 @@ interface ModuleInterface
     /**
      * To subscribe at any event
      */
-    public function subscribe():void;
+    public function subscribe($events):void;
 
     /**
      * Actions call after module is active

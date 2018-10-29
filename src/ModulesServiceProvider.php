@@ -18,7 +18,7 @@ class ModulesServiceProvider extends EventServiceProvider
 		$modules = $this->app->ModuleLoader->getAllModules();
 		foreach ($modules as $module) {
 			$manager = new ModuleManager($module);
-			if($manager->isActive()) {
+			if ($manager->isActive()) {
 				$this->loadViews($module);
 				$this->loadRoutes($module);
 				$this->loadTranslations($module);
@@ -29,30 +29,26 @@ class ModulesServiceProvider extends EventServiceProvider
 
 	private function publish()
 	{
-		$this->loadRoutesFrom(__DIR__.'/routes.php');
-		$this->loadViewsFrom(__DIR__.'/../views', 'laravel-modular');
+		$this->loadRoutesFrom(__DIR__ . '/routes.php');
+		$this->loadViewsFrom(__DIR__ . '/../views', 'laravel-modular');
 
 		$this->publishes([
-							 __DIR__.'/../views/' => resource_path('views/vendor/laravel-modular'),
+							 __DIR__ . '/../views/' => resource_path('views/vendor/laravel-modular'),
 						 ]);
 		$this->publishes([
 							 __DIR__ . '/../database/migrations/' => database_path('migrations'),
 						 ], 'migrations');
 		$this->publishes([
-							 __DIR__.'/../config/laravel-modular.php' => config_path('laravel-modular.php'),
+							 __DIR__ . '/../config/laravel-modular.php' => config_path('laravel-modular.php'),
 						 ], 'config');
 	}
 
 	private function loadViews(Module $module)
 	{
-		$viewsPaths = $module->getViewsPaths();
+		$viewsPath = $module->getViewsPath();
 		$fileSystem = new Filesystem();
-		if (is_array($viewsPaths) && count($viewsPaths) > 0) {
-			foreach ($viewsPaths as $viewPath) {
-				if ($fileSystem->exists($viewPath)) {
-					View::addNamespace($module->getName(), $viewPath);
-				}
-			}
+		if ($fileSystem->exists($viewsPath)) {
+			View::addNamespace($module->getName(), $viewsPath);
 		}
 	}
 

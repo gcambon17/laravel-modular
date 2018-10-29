@@ -16,7 +16,7 @@ interface ModuleInterface
 
     public function getRoutesPath(): string;
 
-    public function getViewsPaths(): string;
+    public function getViewsPath(): string;
 
     public function getDBPrefix(): string;
 

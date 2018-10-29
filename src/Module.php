@@ -64,7 +64,7 @@ class Module implements ModuleInterface
         return $this->moduleDirPath . DIRECTORY_SEPARATOR . $this->routesPath;
     }
 
-    public function getViewsPaths(): string
+    public function getViewsPath(): string
     {
         return $this->moduleDirPath . DIRECTORY_SEPARATOR . $this->viewsPath;
     }
